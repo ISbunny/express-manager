@@ -1,0 +1,9 @@
+.highlight {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 4px;
+    margin: 4px;
+    border-radius: 4px;
+    font-size: large;
+    color: darkturquoise;
+}
