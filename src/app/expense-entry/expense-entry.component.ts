@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, NgModule } from '@angular/core';
 import { ExpressEntry } from '../express-entry';
+import { CustomDirectivesDirective } from '../custom-directives.directive';
+
 @Component({
   selector: 'app-expense-entry',
   templateUrl: './expense-entry.component.html',
@@ -20,7 +22,7 @@ trackByStudentId(index: number, student: any): number {
   return student.id;
 }
 loginName= "admin"
-  constructor() { }
+  constructor(private el:ElementRef) { }
   ngOnInit() {
     this.title = 'Expense Entry';
     this.expressEntry = {
@@ -31,6 +33,7 @@ loginName= "admin"
       location: "Zomato",
       spendOn: new Date(2020, 6, 1, 10, 10, 10), createdOn: new Date(2020, 6, 1, 10, 10, 10),
     };
+    // this.addNewElementToDom();
   }
   showData($event: any) {
     if ($event) {
@@ -38,5 +41,14 @@ loginName= "admin"
       console.log($event.target);
     }
   }
-
+  onClick() {
+    const directive = new CustomDirectivesDirective(this.el);
+    directive.onClicked();
+    directive.addNewElementToDom();
+    
+  }
+  addNewElementToDom(){
+    const directive = new CustomDirectivesDirective(this.el);
+    directive.addNewElementToDom();
+  }
 }

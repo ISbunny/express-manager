@@ -1,0 +1,24 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">item</th>
+        <th scope="col">amount</th>
+        <th scope="col">category</th>
+        <th scope="col">location</th>
+        <th scope="col">spendOn</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entry of expenseEntries"> 
+            <td>{{ entry.id }}</td>
+            <th scope="row">{{ entry.item }}</th> 
+            <th>{{ entry.amount }}</th> 
+            <td>{{ entry.category }}</td> 
+            <td>{{ entry.location }}</td> 
+            <td>{{ entry.spendOn | date: 'short' }}</td> 
+         </tr> 
+    </tbody>
+  </table>
+  
+ 

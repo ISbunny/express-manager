@@ -1,0 +1,57 @@
+<form #editUsers="ngForm" [formGroup]="editForm">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="closeModel()"></button>
+    </div>
+    <div class="modal-body">
+        <!-- Name Input -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" required>
+            <div *ngIf="inputValidation['name']?.errors?.['required']" class="invalid-feedback">
+                Name is required.
+            </div>
+        </div>
+
+        <!-- Username Input -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" formControlName="username" required>
+            <div *ngIf="inputValidation['username']?.errors?.['required']" class="invalid-feedback">
+                username is required.
+            </div>
+        </div>
+
+        <!-- Email Input -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            <div *ngIf="isEdited && inputValidation['email']?.errors?.['required']" class="invalid-feedback">
+                email is required.
+            </div>
+        </div>
+
+        <!-- Phone Input -->
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" formControlName="phone" required>
+            <div *ngIf="inputValidation['phone']?.errors?.['required']" class="invalid-feedback">
+                phone is required.
+            </div>
+        </div>
+
+        <!-- Website Input -->
+        <div class="mb-3">
+            <label for="website" class="form-label">Website</label>
+            <input type="text" class="form-control" id="website" formControlName="website" required>
+            <div *ngIf="inputValidation['website']?.errors?.['required']" class="invalid-feedback">
+                website is required.
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveChanges()">Save</button>
+    </div>
+</form>

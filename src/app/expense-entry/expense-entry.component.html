@@ -72,16 +72,21 @@
       {{l}} 
    </li>
 </ul>
-<ul [ngClass]="{'highlight': 'studentArray.name'}">
+<ul [ngClass]="{'highlight': 'studentArray.name'}" >
     <li *ngFor="let l of studentArray; trackBy:trackByStudentId">
          {{l.name}}
     </li>
 </ul>
-<ul [ngSwitch]="loginName" [ngStyle]="{'color':'#000'}">
+<ul [ngSwitch]="loginName" [ngStyle]="{'color':'#000'}" appCustomDirectives>
     <li *ngSwitchCase="'admin'">Admin User</li>
     <li *ngSwitchCase="'user'">Normal User</li>
     <li *ngSwitchDefault>Guest User</li>
 
 </ul>
+<p >
+   This text will have a font size of 24px.
+   
+ </p>
+ <button class="btn btn-primary" (click)="onClick()">Click Me</button>
  <!-- <input type="text" [value]="userName" [(ngModel)]="userName">
  <p>Two way data binding, Hello {{userName}}</p> -->
