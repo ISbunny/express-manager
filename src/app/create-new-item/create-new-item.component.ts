@@ -24,7 +24,6 @@ export class CreateNewItemComponent {
       this.data = response;
     });
   }
-
   addCallAhead(){
     const modalRef = this.modalService.open(AddModalComponent, { size: 'lg' });
     modalRef.componentInstance.data = this.data;

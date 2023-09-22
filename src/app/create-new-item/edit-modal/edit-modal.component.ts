@@ -37,10 +37,26 @@ export class EditModalComponent {
       this.isEdited = false;
       return;
     }
+    const duplicateCustomer = this.filterDuplicateCustomer();
+    if (duplicateCustomer.length > 0) {
+      alert('Customer already exists');
+      return;
+    }
     const formValues = { ...this.editForm.value, id: this.data.id };
     this.saveData.emit({ index: this.index, data: formValues });
     this.editForm.reset();
 
+  }
+  filterDuplicateCustomer() {
+    const formValues = this.editForm.value;
+    if(!Array.isArray(this.data)){
+      return [];
+    }
+    return this.data.filter((item: any) => {
+      return Object.keys(formValues).every(key => {
+        return item[key] === formValues[key];
+      });
+    });
   }
   closeModel() {
     const dataObject = { ...this.editForm.value, id: this.data.id };
