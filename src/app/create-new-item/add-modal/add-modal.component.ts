@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AddModalComponent {
   @Input() data: any;
   index: any;
+  @Input() isEdited: boolean = false;
+  submitted = false;
   @Output() saveData = new EventEmitter<{ index: any, data: any }>();
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal) { }
   addForm: FormGroup = new FormGroup({
@@ -29,7 +31,9 @@ export class AddModalComponent {
     console.log('add modal data', this.data);
   }
   saveCustomer() {
+    this.submitted = true;
     if (this.addForm.invalid) {
+      this.isEdited = false;
       return;
     }
     const formValues = { ...this.addForm.value, id: this.getTheLastId() + 1 };

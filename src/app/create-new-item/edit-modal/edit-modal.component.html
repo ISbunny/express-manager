@@ -8,50 +8,65 @@
         <!-- Name Input -->
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" formControlName="name" required>
-            <div *ngIf="inputValidation['name']?.errors?.['required']" class="invalid-feedback">
-                Name is required.
+            <input type="text" class="form-control" id="name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && inputValidation['name'].errors }">
+            <div *ngIf="submitted && inputValidation['name'].invalid && inputValidation['name'].touched" class="invalid-feedback">
+                <div *ngIf="inputValidation['name']?.errors?.['required']">
+                    Name is required.
+                </div>
+
             </div>
         </div>
 
         <!-- Username Input -->
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" formControlName="username" required>
-            <div *ngIf="inputValidation['username']?.errors?.['required']" class="invalid-feedback">
-                username is required.
+            <input type="text" class="form-control" id="username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && inputValidation['username'].errors }">
+            <div *ngIf="submitted && inputValidation['name'].invalid && inputValidation['username'].touched" class="invalid-feedback">
+                <div *ngIf="inputValidation['username']?.errors?.['required']">
+                    Username is required.
+                </div>
+
             </div>
         </div>
 
         <!-- Email Input -->
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" formControlName="email" required>
-            <div *ngIf="isEdited && inputValidation['email']?.errors?.['required']" class="invalid-feedback">
-                email is required.
+            <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && inputValidation['email'].errors }">
+            <div *ngIf="submitted && inputValidation['name'].invalid && inputValidation['email'].touched" class="invalid-feedback">
+                <div *ngIf="inputValidation['email']?.errors?.['required'] && inputValidation['email'].touched">
+                    Email is required.
+                </div>
+
             </div>
         </div>
 
         <!-- Phone Input -->
         <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" formControlName="phone" required>
-            <div *ngIf="inputValidation['phone']?.errors?.['required']" class="invalid-feedback">
-                phone is required.
+            <input type="text" class="form-control" id="phone" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && inputValidation['phone'].errors }">
+            <div *ngIf="submitted && inputValidation['name'].invalid && inputValidation['phone'].touched" class="invalid-feedback">
+                <div *ngIf="inputValidation['phone']?.errors?.['required']">
+                    Phone is required.
+                </div>
+
             </div>
         </div>
 
         <!-- Website Input -->
         <div class="mb-3">
             <label for="website" class="form-label">Website</label>
-            <input type="text" class="form-control" id="website" formControlName="website" required>
-            <div *ngIf="inputValidation['website']?.errors?.['required']" class="invalid-feedback">
-                website is required.
+            <input type="text" class="form-control" id="website" formControlName="website" [ngClass]="{ 'is-invalid': submitted && inputValidation['website'].errors }">
+            <div *ngIf="submitted && inputValidation['name'].invalid && inputValidation['website'].touched" class="invalid-feedback">
+                <div *ngIf="inputValidation['website']?.errors?.['required']">
+                    Website is required.
+                </div>
+
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModel()">Close</button>
         <button type="button" class="btn btn-primary" (click)="saveChanges()">Save</button>
     </div>
 </form>

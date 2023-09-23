@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AddModalComponent } from './add-modal/add-modal.component';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-create-new-item',
   templateUrl: './create-new-item.component.html',
@@ -13,18 +14,36 @@ import { AddModalComponent } from './add-modal/add-modal.component';
 })
 export class CreateNewItemComponent {
   data: any[] = [];
-  
+  addItemValue:any[] = [];
+  jsonPlaceholderData: Observable<any> = this.http.get('https://jsonplaceholder.typicode.com/users');
   isEdited: boolean = false;
-  constructor(private modalService: NgbModal,private http:HttpClient) { } // dependency injection
+  constructor(private modalService: NgbModal, private http: HttpClient, private formBuilder: FormBuilder) {
+
+  }
+  addItem: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    username: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    website: new FormControl('')
+  });
   ngOnInit() {
-    this.getJsonPlaceholder();
-  }
-  getJsonPlaceholder() {
-    this.http.get('https://jsonplaceholder.typicode.com/users').subscribe((response:any) => {
-      this.data = response;
+    this.addItem = this.formBuilder.group({
+      name: ['', Validators.required],
+      username: ['', Validators.required],
     });
+    this.jsonPlaceholderData.subscribe((res: any) => {
+      console.log('obsercvable', res);
+      this.data = res;
+    });
+    // this.getJsonPlaceholder();
   }
-  addCallAhead(){
+  // getJsonPlaceholder() {
+  //   this.http.get('https://jsonplaceholder.typicode.com/users').subscribe((response:any) => {
+  //     this.data = response;
+  //   });
+  // }
+  addCallAhead() {
     const modalRef = this.modalService.open(AddModalComponent, { size: 'lg' });
     modalRef.componentInstance.data = this.data;
     modalRef.componentInstance.saveData.subscribe((res: any) => {
@@ -42,13 +61,18 @@ export class CreateNewItemComponent {
       modalRef.componentInstance.saveData.subscribe((res: any) => {
         this.data[res.index] = res.data;
         modalRef.close();
-      }); 
-    
+      });
+
     }
   }
   delete(index: number) {
     console.log('delete', index);
     this.data.splice(index, 1);
   }
- 
+
+  onSubmit(data: any) {
+    console.log('data', data);
+    this.addItemValue.push(data);
+    this.addItem.reset();
+  }
 }

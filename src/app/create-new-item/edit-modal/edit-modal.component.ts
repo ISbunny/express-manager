@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edit-modal',
@@ -9,9 +10,10 @@ import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators 
 export class EditModalComponent {
   @Input() data: any;
   @Input() index: any;
+  submitted = false;
   @Input() isEdited: boolean = false;
   @Output() saveData = new EventEmitter<{ index: any, data: any }>();
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private modalService: NgbModal) {}
     editForm: FormGroup = new FormGroup({
       name: new FormControl(''),
       username: new FormControl(''),
@@ -32,7 +34,7 @@ export class EditModalComponent {
     this.editForm.patchValue(this.data);
   }
   saveChanges() {
-    this.isEdited = true;
+    this.submitted = true;
     if(this.editForm.invalid){
       this.isEdited = false;
       return;
@@ -59,10 +61,10 @@ export class EditModalComponent {
     });
   }
   closeModel() {
-    const dataObject = { ...this.editForm.value, id: this.data.id };
-    this.saveData.emit({ index: this.index, data: dataObject });
+    this.modalService.dismissAll();
   }
   get inputValidation(): { [key: string]: AbstractControl } {
-    return this.editForm.controls;
+ return this.editForm.controls;
+
   }
 }
