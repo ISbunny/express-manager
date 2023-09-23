@@ -13,6 +13,7 @@ import { AddModalComponent } from './create-new-item/add-modal/add-modal.compone
 import { EditModalComponent } from './create-new-item/edit-modal/edit-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { AddNewItemComponent } from './create-new-item/add-new-item/add-new-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     ExpenseEntryListComponent,
     CreateNewItemComponent,
     AddModalComponent,
-    EditModalComponent
+    EditModalComponent,
+    AddNewItemComponent
   ],
   imports: [
     BrowserModule,

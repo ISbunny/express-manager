@@ -17,21 +17,8 @@ export class CreateNewItemComponent {
   addItemValue:any[] = [];
   jsonPlaceholderData: Observable<any> = this.http.get('https://jsonplaceholder.typicode.com/users');
   isEdited: boolean = false;
-  constructor(private modalService: NgbModal, private http: HttpClient, private formBuilder: FormBuilder) {
-
-  }
-  addItem: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    username: new FormControl(''),
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    website: new FormControl('')
-  });
+  constructor(private modalService: NgbModal, private http: HttpClient) {}
   ngOnInit() {
-    this.addItem = this.formBuilder.group({
-      name: ['', Validators.required],
-      username: ['', Validators.required],
-    });
     this.jsonPlaceholderData.subscribe((res: any) => {
       console.log('obsercvable', res);
       this.data = res;
@@ -70,9 +57,5 @@ export class CreateNewItemComponent {
     this.data.splice(index, 1);
   }
 
-  onSubmit(data: any) {
-    console.log('data', data);
-    this.addItemValue.push(data);
-    this.addItem.reset();
-  }
+
 }
