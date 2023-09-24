@@ -28,7 +28,7 @@ export class AddModalComponent {
       phone: ['', Validators.required],
       website: ['', Validators.required]
     });
-    console.log('add modal data', this.data);
+    console.log('add modal data in add-modal-component', this.data);
   }
   saveCustomer() {
     this.submitted = true;
@@ -55,10 +55,16 @@ export class AddModalComponent {
   filterDuplicateCustomer() {
     const formValues = this.addForm.value;
     return this.data.filter((item: any) => {
-      return item.name === formValues.name && item.username === formValues.username && item.email === formValues.email && item.phone === formValues.phone && item.website === formValues.website;
-    }
-    );
+      return (
+        item.name.toLowerCase() == formValues.name.toLowerCase() ||
+        item.username.toLowerCase() == formValues.username.toLowerCase() ||
+        item.email.toLowerCase() == formValues.email.toLowerCase() ||
+        item.phone == formValues.phone ||
+        item.website.toLowerCase() == formValues.website.toLowerCase()
+      );
+    });
   }
+  
   getTheLastId() {
     return this.data[this.data.length - 1].id;
   }
