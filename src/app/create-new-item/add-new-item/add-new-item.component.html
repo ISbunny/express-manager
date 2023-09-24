@@ -6,12 +6,12 @@
         <div class="card card-notes mt-5">
           <div class="card-body">
            <div class="row">
-            <div class="col">
+            <div class="col-md-4">
               <h5 class="card-title">{{item.name}}</h5>
             </div>
            </div>
            <div class="row">
-            <div class="col">
+            <div class="col-md-4">
               <h5 class="card-text">{{item.username}}</h5>
             </div>
            </div>
@@ -29,6 +29,9 @@
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
           <input type="text" class="form-control" id="username" placeholder="Enter Username" formControlName="username">
+        </div>
+        <div id="duplicateNote">
+          {{duplicateNote}}
         </div>
         <div class="mb-3 d-flex justify-content-between">
           <div>

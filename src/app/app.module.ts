@@ -36,7 +36,7 @@ import { AddNewItemComponent } from './create-new-item/add-new-item/add-new-item
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ChildComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,6 +11,7 @@ export class TestComponent {
   filteredNumbers: number[] = [];
   constructor(private http: HttpClient) { }
   parentMessage = 'Message from parent component';
+  // sendData: Observable<any> | undefined;
   date: Date = new Date();
   price : number = 100;
   Fruits = ["Apple","Orange","Grapes","Mango","Kiwi","Pomegranate"];
@@ -18,6 +19,7 @@ export class TestComponent {
     setInterval(() => observer.next(new Date()), 1000);
   });
   ngOnInit() {
+  this.practice();
     const numbers$ = from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     const filterFn = filter( (num : number) => num > 5 ); 
 const filteredNumbers$ = filterFn(numbers$); 
@@ -40,5 +42,15 @@ const num$ = from([1, 2, 3, 4, 5]);
     });
   }
   userData$ : Observable<any> = this.http.get('https://jsonplaceholder.typicode.com/users');
+  sendMessage(data: string) {
+    console.log('data',data);
   }
-
+//   
+practice() {
+  let names = ['sonu','rohit','akash','sonam','rohan','Sagar']
+const filteredUsers = names.filter(name=>name.startsWith('s'));
+const findUsers = names.find(name=>name.startsWith('s'));
+console.log('filteredUsers',filteredUsers);
+console.log('findUsers',findUsers);
+}
+}
