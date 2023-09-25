@@ -14,7 +14,6 @@ import { EditModalComponent } from './create-new-item/edit-modal/edit-modal.comp
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AddNewItemComponent } from './create-new-item/add-new-item/add-new-item.component';
-import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,7 @@ import { LoginComponent } from './login/login.component';
     CreateNewItemComponent,
     AddModalComponent,
     EditModalComponent,
-    AddNewItemComponent,
-    LoginComponent
+    AddNewItemComponent
   ],
   imports: [
     BrowserModule,
