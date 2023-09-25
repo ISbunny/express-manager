@@ -13,15 +13,15 @@ export class EditModalComponent {
   submitted = false;
   @Input() isEdited: boolean = false;
   @Output() saveData = new EventEmitter<{ index: any, data: any }>();
-  constructor(private formBuilder: FormBuilder,private modalService: NgbModal) {}
-    editForm: FormGroup = new FormGroup({
-      name: new FormControl(''),
-      username: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-      website: new FormControl('')
-    });
-  
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal) { }
+  editForm: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    username: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    website: new FormControl('')
+  });
+
   ngOnInit() {
     this.editForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -30,41 +30,47 @@ export class EditModalComponent {
       phone: ['', Validators.required],
       website: ['', Validators.required]
     });
-    console.log('editdata',this.data);
+    console.log('editdata', this.data);
     this.editForm.patchValue(this.data);
   }
   saveChanges() {
     this.submitted = true;
-    if(this.editForm.invalid){
+    if (this.editForm.invalid) {
       this.isEdited = false;
       return;
     }
+    const formValues = this.editForm.value;
     const duplicateCustomer = this.filterDuplicateCustomer();
     if (duplicateCustomer.length > 0) {
       alert('Customer already exists');
       return;
     }
-    const formValues = { ...this.editForm.value, id: this.data.id };
-    this.saveData.emit({ index: this.index, data: formValues });
-    this.editForm.reset();
+    const index = this.data.findIndex((item: any) => item.id === formValues.id);
 
+    this.data[index] = formValues; // Update the existing data with the new form values
+    this.saveData.emit({ index: index, data: formValues });
+    this.editForm.reset();
   }
   filterDuplicateCustomer() {
+    debugger
     const formValues = this.editForm.value;
-    if(!Array.isArray(this.data)){
-      return [];
+    if (!Array.isArray(this.data)) {
+      return this.data = [this.data];
     }
-    return this.data.filter((item: any) => {
-      return Object.keys(formValues).every(key => {
-        return item[key] === formValues[key];
-      });
-    });
+    const index = this.data.findIndex((item: any) => item.id == this.data.id);
+    return this.data.reduce((acc: any, item: any) => {
+      if (item.username === formValues.username && item.email === formValues.email && item.index !== index) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
   }
+
   closeModel() {
     this.modalService.dismissAll();
   }
   get inputValidation(): { [key: string]: AbstractControl } {
- return this.editForm.controls;
+    return this.editForm.controls;
 
   }
 }

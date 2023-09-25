@@ -46,6 +46,7 @@ export class CreateNewItemComponent {
     if (modalRef.componentInstance.data) {
       modalRef.componentInstance.isEdited = true;
       modalRef.componentInstance.saveData.subscribe((res: any) => {
+        debugger
         this.data[res.index] = res.data;
         modalRef.close();
       });
