@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter,OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   templateUrl: './child.component.html',
   styleUrls: ['./child.component.css']
 })
-export class ChildComponent {
+export class ChildComponent implements OnDestroy {
 @Input() childMessage!: string;
 @Output() sendData = new EventEmitter<string>();
 public sendDataSubject = new Subject<string>();
@@ -18,5 +18,10 @@ public sendDataSubject = new Subject<string>();
     const data = 'Hello from child';
     this.sendData.emit(data);
     this.sendDataSubject.next(data);
+  }
+  ngOnDestroy(): void {
+    // this.recivedData.unsubscribe();
+    this.sendDataSubject.unsubscribe();
+    console.log('Child component destroyed',this.sendDataSubject.closed);
   }
 }

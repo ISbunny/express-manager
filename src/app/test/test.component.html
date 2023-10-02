@@ -15,4 +15,7 @@
       <h5>Negative index:- {{Fruits | slice:-2}}</h5> 
       <h6>Negative start and end index:- {{Fruits | slice:-4:-2}}</h6> 
    </div>
+   <input type="text"  [(ngModel)]="email" (ngModelChange)="updateEmail()">
+   <button class="btn btn-primary" (click)="sendData()">SendData</button>
+   <p> hello {{email}}</p>
 <app-child [childMessage]="parentMessage" (sendData)="sendMessage($event)"></app-child>

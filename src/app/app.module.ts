@@ -14,6 +14,9 @@ import { EditModalComponent } from './create-new-item/edit-modal/edit-modal.comp
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AddNewItemComponent } from './create-new-item/add-new-item/add-new-item.component';
+import { AppRoutingModule } from './app-routing.module';
+import { DataServiceService } from './data-service.service';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { AddNewItemComponent } from './create-new-item/add-new-item/add-new-item
     CreateNewItemComponent,
     AddModalComponent,
     EditModalComponent,
-    AddNewItemComponent
+    AddNewItemComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -34,9 +38,10 @@ import { AddNewItemComponent } from './create-new-item/add-new-item/add-new-item
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
-  providers: [ChildComponent],
+  providers: [ChildComponent,DataServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

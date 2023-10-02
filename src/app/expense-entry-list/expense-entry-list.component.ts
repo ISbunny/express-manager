@@ -1,14 +1,21 @@
-import { Component } from '@angular/core';
+import { Component,OnInit, OnDestroy } from '@angular/core';
 import { ExpressEntry } from '../express-entry';
+import { DataServiceService } from '../data-service.service';
+import { Observable, Subscription } from 'rxjs';
+// import { Subject } from 'rxjs';
 @Component({
   selector: 'app-expense-entry-list',
   templateUrl: './expense-entry-list.component.html',
   styleUrls: ['./expense-entry-list.component.css']
 })
-export class ExpenseEntryListComponent {
+export class ExpenseEntryListComponent implements OnInit,OnDestroy {
   title!: string;
   expenseEntries: ExpressEntry[] = [];
-
+  myObservable!: Observable<string>;
+  mySubscription!: Subscription;
+  message!: string;
+  // mysubjectNew = new Subject<string>();
+  recivedData!: Subscription;
   getExpenseEntries(): ExpressEntry[] {
     let mockExpenseEntries: ExpressEntry[] = [
       {
@@ -59,9 +66,50 @@ export class ExpenseEntryListComponent {
     ];
     return mockExpenseEntries;
   }
-  constructor() { }
+ 
+  constructor(private dataService:DataServiceService) { }
   ngOnInit() {
+    this.myObservable = new Observable(observer => {
+      setTimeout(() => {
+        observer.next('Hello World!');
+      }, 1000);
+    });
+
+    this.mySubscription = this.myObservable.subscribe(message => {
+      this.message = message;
+      console.log('message',message);
+      
+    });
     this.title = "Expense Entries";
-    this.expenseEntries = this.getExpenseEntries();
-  }
+    this.getexpenseentries();
+    // this.dataService.getUsersObservable().subscribe((res:any) => {
+    //   console.log('resdataService',res);
+    // });
+    this.dataService.myNewSubject.subscribe((res:any) => {
+      console.log('resdataService',res);
+      this.recivedData = res;
+      if(this.recivedData){
+        this.dataService.createNewOrderObjBv.next(this.recivedData);
+      }
+    });
+  
+}
+ngOnDestroy() {
+  this.mySubscription.unsubscribe();
+  console.log('users subscription closed:', this.mySubscription.closed);
+}
+ngAfterViewInit() {
+  this.dataService.createNewOrderObjBv.subscribe((res:any) => {
+    console.log('resBehaviour',res);
+  });// console.log('details',this.details);
+} 
+getexpenseentries() {
+  this.expenseEntries = this.getExpenseEntries();
+}
+getAlert() {  
+  alert('Hello');  
+}
+
+
+
 }
